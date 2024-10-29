@@ -1,0 +1,18 @@
+<div>
+    <button class="btn btn-primary me-3" (click)="get400Error()">Test400Error</button>
+    <button class="btn btn-primary me-3" (click)="get401Error()">Test401Error</button>
+    <button class="btn btn-primary me-3" (click)="get404Error()">Test404Error</button>
+    <button class="btn btn-primary me-3" (click)="get500Error()">Test500Error</button>
+    <button class="btn btn-primary me-3" (click)="get400ValidationError()">Test400ValidationError</button>
+
+    @if (validationErrors.length > 0) {
+        <div class="row mt-5">
+                @for (error of validationErrors; track $index) {
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{error}}
+                      </div>
+                }
+        </div>
+    }
+</div>
