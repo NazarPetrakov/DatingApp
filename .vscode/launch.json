@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "https://localhost:4200",
+            "webRoot": "${workspaceFolder}/Client"
+        },
+        {
+            "name": "Attach Chrome",
+            "type": "chrome",
+            "request": "attach",
+            "url": "https://localhost:4200",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "name": "C#: API Debug",
             "type": "dotnet",
             "request": "launch",
