@@ -11,7 +11,7 @@ export function setPaginationResponse<T>(
     pagination: JSON.parse(response.headers.get('Pagination')!),
   });
 }
-export function serPaginationHeaders(pageNumber: number, pageSize: number) {
+export function setPaginationHeaders(pageNumber: number, pageSize: number) {
   let params = new HttpParams();
 
   if (pageNumber && pageSize) {

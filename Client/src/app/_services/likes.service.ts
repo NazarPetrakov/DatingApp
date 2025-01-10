@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment.development';
 import { Member } from '../_models/member';
 import { PaginatedResult } from '../_models/paginations';
 import {
-  serPaginationHeaders,
+  setPaginationHeaders,
   setPaginationResponse,
 } from './paginationHelper';
 
@@ -21,7 +21,7 @@ export class LikesService {
     return this.http.post(this.baseUrl + 'likes/' + targetId, {});
   }
   getLikes(predicate: string, pageNumber: number, pageSize: number) {
-    let params = serPaginationHeaders(pageNumber, pageSize);
+    let params = setPaginationHeaders(pageNumber, pageSize);
 
     params = params.append('predicate', predicate);
 
