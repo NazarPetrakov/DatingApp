@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["hmac", "HMACSHA", "paginations", "tabset", "Timeago"]
+  "cSpell.words": [
+    "hmac",
+    "HMACSHA",
+    "paginations",
+    "signalr",
+    "tabset",
+    "Timeago"
+  ]
 }
