@@ -1,4 +1,11 @@
-import { Component, inject, input, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  computed,
+  inject,
+  input,
+  ViewChild,
+} from '@angular/core';
 import { MessageService } from '../../_services/message.service';
 import { TimeagoModule } from 'ngx-timeago';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -8,17 +15,36 @@ import { FormsModule, NgForm } from '@angular/forms';
   standalone: true,
   imports: [TimeagoModule, FormsModule],
   templateUrl: './member-messages.component.html',
-  styleUrl: './member-messages.component.css'
+  styleUrl: './member-messages.component.css',
 })
-export class MemberMessagesComponent{
-  @ViewChild('messageForm') messageForm? : NgForm
+export class MemberMessagesComponent implements AfterViewChecked {
+  @ViewChild('messageForm') messageForm?: NgForm;
+  @ViewChild('scrollMe') scrollContainer?: any;
   messageService = inject(MessageService);
   username = input.required<string>();
+  messageLength = computed(() => this.messageService.messageThread().length);
+  messageLengthSaved = 0;
   messageContent = '';
-  
-  sendMessage(){
-    this.messageService.sendMessage(this.username(), this.messageContent).then(()=> {
-      this.messageForm?.reset();
-    })
+
+  sendMessage() {
+    this.messageService
+      .sendMessage(this.username(), this.messageContent)
+      .then(() => {
+        this.messageForm?.reset();
+        this.scrollToBottom();
+      });
+  }
+  ngAfterViewChecked(): void {
+    if (this.messageLengthSaved !== this.messageLength()) {
+      this.scrollToBottom();
+      this.messageLengthSaved = this.messageLength();
+    }
+  }
+
+  private scrollToBottom() {
+    if (this.scrollContainer) {
+      this.scrollContainer.nativeElement.scrollTop =
+        this.scrollContainer.nativeElement.scrollHeight;
+    }
   }
 }
