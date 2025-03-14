@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
@@ -10,21 +8,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class AccountController(UserManager<AppUser> userManager, ITokenService tokenService, 
+    public class AccountController(UserManager<AppUser> userManager, ITokenService tokenService,
         IMapper mapper) : BaseApiController
     {
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExist(registerDto.Username)) return BadRequest("Username is taken");
-            
+
             var user = mapper.Map<AppUser>(registerDto);
 
             user.UserName = registerDto.Username.ToLower();
 
             var result = await userManager.CreateAsync(user, registerDto.Password);
 
-            if(!result.Succeeded) return BadRequest(result.Errors);
+            if (!result.Succeeded) return BadRequest(result.Errors);
 
             return new UserDto
             {
@@ -39,14 +37,14 @@ namespace API.Controllers
         {
             var user = await userManager.Users
                 .Include(u => u.Photos)
-                    .FirstOrDefaultAsync(x => 
+                    .FirstOrDefaultAsync(x =>
                         x.NormalizedUserName == loginDto.Username.ToUpper());
 
             if (user == null || user.UserName == null) return Unauthorized("Invalid Username");
 
             var result = await userManager.CheckPasswordAsync(user, loginDto.Password);
 
-            if(!result) return Unauthorized();
+            if (!result) return Unauthorized();
 
             return new UserDto
             {

@@ -1,5 +1,4 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { environment } from '../../environments/environment';
 import {
   HubConnection,
   HubConnectionBuilder,
@@ -9,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../_models/user';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

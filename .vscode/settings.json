@@ -5,6 +5,7 @@
     "paginations",
     "signalr",
     "tabset",
-    "Timeago"
+    "Timeago",
+    "wwwroot"
   ]
 }

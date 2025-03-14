@@ -15,11 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    TextInputComponent,
-    DatePickerComponent,
-  ],
+  imports: [ReactiveFormsModule, TextInputComponent, DatePickerComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -30,7 +26,7 @@ export class RegisterComponent implements OnInit {
   cancelRegister = output<boolean>();
   registerForm: FormGroup = new FormGroup({});
   maxDate = new Date();
-  validationErrors: string[] | undefined;
+  validationErrors: any[] | undefined;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -72,7 +68,10 @@ export class RegisterComponent implements OnInit {
     this.registerForm.patchValue({ dateOfBirth: dob });
     this.accountService.register(this.registerForm.value).subscribe({
       next: (response) => this.router.navigateByUrl('/members'),
-      error: (error) => (this.validationErrors = error),
+      error: (errors) => {
+        console.error('error', errors.error);
+        this.validationErrors = Array.isArray(errors.error) ? errors.error : undefined;
+      },
     });
   }
   cancel() {

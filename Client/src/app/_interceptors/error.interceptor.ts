@@ -14,13 +14,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         switch (error.status) {
           case 400:
             if (error.error.errors) {
-              const modalStatesErrors = [];
+              const modalStateErrors = [];
               for (const key in error.error.errors) {
                 if (error.error.errors[key]) {
-                  modalStatesErrors.push(error.error.errors[key]);
+                  modalStateErrors.push(error.error.errors[key]);
                 }
               }
-              throw modalStatesErrors.flat();
+              throw modalStateErrors.flat();
             } else {
               toastr.error(error.error, error.status);
             }
@@ -32,11 +32,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             router.navigateByUrl('/not-found');
             break;
           case 500:
-            const navigationExtras: NavigationExtras = {state: {error: error.error}}
-            router.navigateByUrl('server-error', navigationExtras)
+            const navigationExtras: NavigationExtras = {
+              state: { error: error.error },
+            };
+            router.navigateByUrl('/server-error', navigationExtras);
             break;
           default:
-            toastr.error('Something unexpected went wrong')
+            toastr.error('Something unexpected went wrong');
             break;
         }
       }

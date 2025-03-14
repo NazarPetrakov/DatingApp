@@ -61,7 +61,7 @@
     <div class="alert alert-danger text-start">
       <ul>
         @for (error of validationErrors; track $index) {
-          <li>{{error}}</li>
+          <li>{{error.description}}</li>
         }
       </ul>
     </div>

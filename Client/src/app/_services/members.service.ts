@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Member } from '../_models/member';
-import { environment } from '../../environments/environment.development';
 import { Photo } from '../_models/photo';
 import { PaginatedResult } from '../_models/paginations';
 import { UserParams } from '../_models/userParams';
@@ -11,6 +10,7 @@ import {
   setPaginationHeaders,
   setPaginationResponse,
 } from './paginationHelper';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
